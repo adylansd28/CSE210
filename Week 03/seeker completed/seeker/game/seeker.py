@@ -2,8 +2,6 @@
 
 # 1) Add the class declaration. Use the following class comment.
 
-
-
 class Seeker:
 
     """
