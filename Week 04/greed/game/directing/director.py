@@ -50,26 +50,35 @@ class Director:
         robot = cast.get_first_actor("robots")   
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
+        
+        
+        rocks = cast.get_actors("rocks")
+        gems = cast.get_actors("gems")
 
         robot.move_next(max_x, max_y)
+
         banner = cast.get_first_actor("banners")
         score = cast.get_first_actor("score")
 
         banner.set_text("")
-        rocks = cast.get_actors("rocks")
-        gems = cast.get_actors("gems")
+
+        counter = 0
 
         for rock in rocks:
-            
             if robot.get_position().equals(rock.get_position()):
-                cast.remove_actor("rocks", rock)
+                cast.remove_actor("rocks", counter)
                 score.hit_consequence("rock")
 
-        # for gem in gems:
+            counter += 1
 
-        #     if robot.get_position().equals(gem.get_position()):
-        #         cast.remove_actor("gems", gem)
-        #         score.hit_consequence("gem")
+        counter = 0
+
+        for gem in gems:
+            if robot.get_position() == gem.get_position():
+                cast.remove_actor("gems", counter)
+                score.hit_consequence("gem")
+
+            counter += 1
 
         score.set_text(f"Score: {score.get_score()}")
 

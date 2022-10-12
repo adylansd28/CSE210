@@ -21,11 +21,11 @@ CELL_SIZE = 15
 FONT_SIZE = 15
 COLS = 1000
 ROWS = 40
-ELEMENTS = [["rocks","o"], ["gems","*"]]
+ELEMENTS = [["rocks","O"], ["gems","A"]]
 CAPTION = "Robot Finds Kitten"
 DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = 20
+DEFAULT_ARTIFACTS = 5
 MIN_VEL = Point(0,1)
 
 
@@ -66,8 +66,8 @@ def main():
         random_choice = random.randint(0, 1)
         typeElement = ELEMENTS[random_choice]
 
-        x = random.randint(1, COLS - 1)
-        y = 0
+        x = random.randint(10, COLS - 10)
+        y = 50
         position = Point(x, y)
 
         r = random.randint(0, 255)
