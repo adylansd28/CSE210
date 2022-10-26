@@ -18,8 +18,8 @@ from game.shared.point import Point
 def main():
 
     initial_vel = Point(0,-15)
-    first_snake = Cycle(100, 100, initial_vel, constants.RED)
-    second_snake = Cycle(600, 100, initial_vel, constants.GREEN)
+    first_snake = Cycle(150, 150, initial_vel, constants.RED)
+    second_snake = Cycle(600, 150, initial_vel, constants.GREEN)
 
     first_score = Score()
     first_score.set_position(Point(25,25))

@@ -62,23 +62,26 @@ class Director:
 
         banner.set_text("")
 
-        counter = 0
-
         for rock in rocks:
             if robot.get_position().equals(rock.get_position()):
-                cast.remove_actor("rocks", counter)
+                cast.remove_actor("rocks", rock)
                 score.hit_consequence("rock")
-
-            counter += 1
-
-        counter = 0
+                break
 
         for gem in gems:
             if robot.get_position() == gem.get_position():
-                cast.remove_actor("gems", counter)
+                cast.remove_actor("gems", gem)
                 score.hit_consequence("gem")
+                break
 
-            counter += 1
+        rocks = cast.get_actors("rocks")
+        gems = cast.get_actors("gems")
+
+        for _rock in rocks:
+            _rock.move_next(max_x, max_y)
+
+        for _gem in gems:
+            _gem.move_next(max_x, max_y)
 
         score.set_text(f"Score: {score.get_score()}")
 

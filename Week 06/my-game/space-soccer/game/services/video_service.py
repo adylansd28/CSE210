@@ -76,7 +76,7 @@ class VideoService:
         Args:
             title (string): The title of the window.
         """
-        pyray.init_window(constants.MAX_X, constants.MAX_Y, constants.CAPTION)
+        pyray.init_window(constants.MAX_X, constants.MAX_Y, "Space Soccer")
         pyray.set_target_fps(constants.FRAME_RATE)
 
     def _draw_grid(self):

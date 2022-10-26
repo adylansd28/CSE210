@@ -62,12 +62,14 @@ def main():
     robot.set_position(position)
     cast.add_actor("robots", robot)
 
+    def randint_skip_of()
+
     for n in range(DEFAULT_ARTIFACTS):
         random_choice = random.randint(0, 1)
         typeElement = ELEMENTS[random_choice]
 
         x = random.randint(10, COLS - 10)
-        y = 50
+        y = 45
         position = Point(x, y)
 
         r = random.randint(0, 255)
@@ -76,6 +78,7 @@ def main():
         color = Color(r, g, b)
         
         artifact = Artifact()
+        artifact.set_velocity(Point(0,-15))
         artifact.set_text(typeElement[1])
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
