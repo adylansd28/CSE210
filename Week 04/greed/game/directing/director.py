@@ -1,3 +1,9 @@
+from game.casting.artifact import Artifact
+from game.shared.point import Point
+import random
+from game.shared.color import Color
+import time
+
 class Director:
     """A person who directs the game. 
     
@@ -17,6 +23,7 @@ class Director:
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
+        self.initial_time = time.time()
         
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -47,6 +54,11 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
+        positions = []
+
+        for i in range(15,990, 15):
+            positions.append(i)
+
         robot = cast.get_first_actor("robots")   
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
@@ -62,6 +74,38 @@ class Director:
 
         banner.set_text("")
 
+        new_time = time.time()
+        time_difference = new_time - self.initial_time
+
+        if time_difference > 0.75:
+
+            self.initial_time = time.time()
+
+            for n in range(5):
+
+                ELEMENTS = [["rocks","O"], ["gems","*"]]
+
+                random_choice = random.randint(0, 1)
+                typeElement = ELEMENTS[random_choice]
+
+                x = random.randint(0, 64)
+                y = random.randint(0,4)
+                position = Point(positions[x], positions[y])
+
+                r = random.randint(0, 255)
+                g = random.randint(0, 255)
+                b = random.randint(0, 255)
+                color = Color(r, g, b)
+                
+                artifact = Artifact()
+                artifact.set_velocity(Point(0,15))
+                artifact.set_text(typeElement[1])
+                artifact.set_font_size(15)
+                artifact.set_color(color)
+                artifact.set_position(position)
+                cast.add_actor(typeElement[0], artifact)
+
+
         for rock in rocks:
             if robot.get_position().equals(rock.get_position()):
                 cast.remove_actor("rocks", rock)
@@ -69,7 +113,7 @@ class Director:
                 break
 
         for gem in gems:
-            if robot.get_position() == gem.get_position():
+            if robot.get_position().equals(gem.get_position()):
                 cast.remove_actor("gems", gem)
                 score.hit_consequence("gem")
                 break

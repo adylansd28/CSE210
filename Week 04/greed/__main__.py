@@ -1,6 +1,8 @@
 import os
 import random
 
+from pyautogui import position
+
 from game.casting.actor import Actor
 from game.casting.artifact import Artifact
 from game.casting.cast import Cast
@@ -19,14 +21,18 @@ MAX_X = 900
 MAX_Y = 600
 CELL_SIZE = 15
 FONT_SIZE = 15
-COLS = 1000
-ROWS = 40
-ELEMENTS = [["rocks","O"], ["gems","A"]]
+COLS = 990
+ROWS = 45
+ELEMENTS = [["rocks","O"], ["gems","*"]]
 CAPTION = "Robot Finds Kitten"
 DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = 5
-MIN_VEL = Point(0,1)
+DEFAULT_ARTIFACTS = 10
+MIN_VEL = Point(0,15)
+positions = []
+
+for i in range(15,990, 15):
+    positions.append(i)
 
 
 def main():
@@ -39,7 +45,7 @@ def main():
     banner.set_text("")
     banner.set_font_size(FONT_SIZE)
     banner.set_color(WHITE)
-    banner.set_position(Point(CELL_SIZE, 0))
+    banner.set_position(Point(CELL_SIZE, CELL_SIZE))
     cast.add_actor("banners", banner)
 
     # score tracker
@@ -51,8 +57,8 @@ def main():
     cast.add_actor("score", score_tracker)
 
     # create the robot
-    x = int(MAX_X / 2)
-    y = int(MAX_Y / 2)
+    x = 450
+    y = 585
     position = Point(x, y)
 
     robot = Actor()
@@ -62,15 +68,13 @@ def main():
     robot.set_position(position)
     cast.add_actor("robots", robot)
 
-    def randint_skip_of()
-
     for n in range(DEFAULT_ARTIFACTS):
         random_choice = random.randint(0, 1)
         typeElement = ELEMENTS[random_choice]
 
-        x = random.randint(10, COLS - 10)
-        y = 45
-        position = Point(x, y)
+        x = random.randint(0, 64)
+        y = random.randint(0,3)
+        position = Point(positions[x], positions[y])
 
         r = random.randint(0, 255)
         g = random.randint(0, 255)
@@ -78,12 +82,11 @@ def main():
         color = Color(r, g, b)
         
         artifact = Artifact()
-        artifact.set_velocity(Point(0,-15))
+        artifact.set_velocity(Point(0,15))
         artifact.set_text(typeElement[1])
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_velocity(MIN_VEL)
         cast.add_actor(typeElement[0], artifact)
     
     # start the game

@@ -72,4 +72,4 @@ class Cast:
             actor (Actor): The actor to remove.
         """
         if group in self._actors:
-            self._actors[group].pop(actor)
+            self._actors[group].remove(actor)
